@@ -1,0 +1,24 @@
+{
+  "name": "sentimental-peas",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AbiyMelaku/SentimentalPeas.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AbiyMelaku/SentimentalPeas/issues"
+  },
+  "homepage": "https://github.com/AbiyMelaku/SentimentalPeas#readme",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "express": "^4.14.1"
+  }
+}
