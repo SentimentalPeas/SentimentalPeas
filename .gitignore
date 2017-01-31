@@ -1,5 +1,4 @@
 *.log
 .DS_Store
 bower_components
-node_modulesnpm
-bower
+node_modules
