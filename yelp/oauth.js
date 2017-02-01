@@ -541,3 +541,7 @@ try {
   OAuth.correctTimestampFromSrc();
 } catch(e) {
 }
+
+module.exports = OAuth;
+
+
