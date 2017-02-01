@@ -1,0 +1,48 @@
+<div ng-controller="HomeController" class="container-fluid">
+  <div class="row">
+
+
+    <div class="col-md-offset-2 col-md-8">
+      
+      <form ng-submit="submit()">
+        <div class="form-group">
+          <label for="firstName">First Name:</label>
+          <input type="text" class="form-control" placeholder="i.e. 'John'" ng-model="firstName">
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name:</label>
+          <input type="text" class="form-control" placeholder="i.e. 'Smith'" ng-model="lastName">
+        </div>
+        <div class="form-group">
+          <label for="address">Search Address:</label>
+          <input type="text" class="form-control" placeholder="i.e. '944 Market Street, San Franciso, CA'" ng-model="address">
+        </div>
+        <div class="form-group">
+          <label for="time">Select a time:</label>
+          <select class="form-control" ng-model="time">
+            <option>11:00 a.m.</option>
+            <option>11:15 a.m.</option>
+            <option>11:30 a.m.</option>
+            <option>11:45 a.m.</option>
+            <option selected>12:00 p.m.</option>
+            <option>12:15 p.m.</option>
+            <option>12:30 p.m.</option>
+            <option>12:45 p.m.</option>
+            <option>1:00 p.m.</option>
+            <option>1:15 p.m.</option>
+            <option>1:30 p.m.</option>
+            <option>1:45 p.m.</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit (POST)</button>
+        <button type="button" class="btn btn-success" ng-click="getRequest()">Sample (GET)</button>
+      </form>
+
+      <hr />
+      <h3>Server JSON Response</h3>
+      <pre>{{ response }}</pre>
+
+    </div> <!-- .col-md-6 -->
+
+  </div> <!-- .row -->
+</div> <!-- .container-fluid -->
