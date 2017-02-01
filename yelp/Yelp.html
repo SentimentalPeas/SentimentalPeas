@@ -48,7 +48,7 @@ You wouldn't actually want to expose your access token secret like this in a rea
       OAuth.SignatureMethod.sign(message, accessor);
       var parameterMap = OAuth.getParameterMap(message.parameters);
       parameterMap.oauth_signature = OAuth.percentEncode(parameterMap.oauth_signature)
-      console.log(parameterMap);
+      console.log('paramterMap:  ', parameterMap);
       $.ajax({
         'url' : message.action,
         'data' : parameterMap,
@@ -61,7 +61,7 @@ You wouldn't actually want to expose your access token secret like this in a rea
               '<img src="' + data.businesses[i].rating_img_url + '"></img>' + '<br/>' +
               '<img src="' + data.businesses[i].image_url + '"></img>');
           }
-          console.log(data);
+          console.log('data: ', data);
         }
       });
     </script>
