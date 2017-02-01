@@ -17,7 +17,14 @@ var oAuth = require('./yelp/oauth.js');
 //require keys
 var yelpKeys = require('./keys.js');
 
+/* require the modules needed */
+var oauthSignature = require('oauth-signature');  
+var n = require('nonce')();  
+var request = require('request');  
+var qs = require('querystring');  
+var _ = require('lodash');
 
+/* CONVERTING TO A NODE STYLE API CALL
 //set up api call ================
 var auth = {
   //
@@ -78,6 +85,83 @@ $.ajax({
   console.log('data: ', data);
   }
 });
+CONVERSION BELOW DELETE ABOVE CODE WHEN READY*/
+
+
+/* Function for yelp call
+ * ------------------------
+ * setParameters: object with params to search
+ * callback: callback(error, response, body)
+ */
+var requestYelp = function(setParameters, callback) {
+
+  /* The type of request */
+  var httpMethod = 'GET';
+
+  /* The url we are using for the request */
+  var url = 'http://api.yelp.com/v2/search';
+
+  /* We can setup default parameters here */
+  var defaultParameters = {
+    location: 'San+Francisco',
+    sort: '2'
+  };
+
+  /* We set the require parameters here */
+  var requiredParameters = {
+    oauth_consumer_key : yelpKeys.consumerKey,
+    oauth_token : yelpKeys.accessToken,
+    oauth_nonce : n(),
+    oauth_timestamp : n().toString().substr(0,10),
+    oauth_signature_method : 'HMAC-SHA1',
+    oauthVersion : '1.0'
+  };
+
+  /* We combine all the parameters in order of importance */ 
+  var parameters = _.assign(defaultParameters, setParameters, requiredParameters);
+  console.log('combined paramaters line 52', parameters);
+  /* We set our secrets here */
+  var consumerSecret = yelpKeys.consumerSecret;
+  var tokenSecret = yelpKeys.tokenSecret;
+
+  /* Then we call Yelp's Oauth 1.0a server, and it returns a signature */
+  /* Note: This signature is only good for 300 seconds after the oauth_timestamp */
+  var signature = oauthSignature.generate(httpMethod, url, parameters, consumerSecret, tokenSecret, { encodeSignature: false});
+
+  /* We add the signature to the list of paramters */
+  parameters.oauth_signature = signature;
+  console.log('parameters line 63', parameters);
+  /* Then we turn the paramters object, to a query string */
+  var paramURL = qs.stringify(parameters);
+  console.log('paramURL ', paramURL)
+
+  /* Add the query string to the url */
+  var apiURL = url+'?'+paramURL;
+
+  /* Then we use request to send make the API Request */
+  request(apiURL, function(error, response, body){
+    return callback(error, response, body);
+  });
+
+};
+var terms = 'food';
+var near = '944 Market Street, San+Francisco';
+
+//CALL FUNCTION BELOW FOR TESTING
+// requestYelp(params, function(err, response, body) {
+//   if (err) {
+//     console.log('ERR in API CALL', err)
+//   } else {
+//     console.log(response.body);
+//   }
+// });
+
+
+
+
+
+
+
 
 // listen (start app with node server.js) ======================================
 var port = 8080
