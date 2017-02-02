@@ -64,10 +64,10 @@ var message = {
   'parameters' : parameters
 };
 
-OAuth.setTimestampAndNonce(message);
-OAuth.SignatureMethod.sign(message, accessor);
-var parameterMap = OAuth.getParameterMap(message.parameters);
-parameterMap.oauth_signature = OAuth.percentEncode(parameterMap.oauth_signature);
+oAuth.setTimestampAndNonce(message);
+oAuth.SignatureMethod.sign(message, accessor);
+var parameterMap = oAuth.getParameterMap(message.parameters);
+parameterMap.oauth_signature = oAuth.percentEncode(parameterMap.oauth_signature);
 console.log('paramterMap:  ', parameterMap);
 
 $.ajax({
