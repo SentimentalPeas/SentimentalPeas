@@ -22,7 +22,7 @@ app.controller('HomeController', ['$scope', 'dataFactory', function($scope, data
   //         $scope.response = 'Unable to load customer data: ' + error.message;
   //     });
   // }
-
+  
   var dataArr = [];
   function getRestaurantsByAddress() {
     var clientData = {
@@ -50,7 +50,7 @@ app.controller('HomeController', ['$scope', 'dataFactory', function($scope, data
       });
   }
 
-
+  
   // This is a GET request not currently used but left for example if needed
   function getRestaurants() {
     dataFactory.getRestaurants()
