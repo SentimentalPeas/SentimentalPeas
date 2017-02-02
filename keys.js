@@ -10,5 +10,5 @@ var yelpKeys = {
     signatureMethod : "HMAC-SHA1"
   }
 }
-console.log('test');
+
 module.exports = yelpKeys;
