@@ -1,3 +1,20 @@
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Gist
+ @AbiyMelaku
+ Watch 1
+  Star 0
+ Fork 0 Jawadban/GFProject
+ Code  Issues 0  Pull requests 0  Projects 0  Wiki  Pulse  Graphs
+Branch: master Find file Copy pathGFProject/public/app/views/home.html
+cf56d8b  7 hours ago
+@Jawadban Jawadban Did Server-Client-Yelp routing. Displays Top 10 resturants according …
+1 contributor
+RawBlameHistory     
+Executable File  63 lines (56 sloc)  2.5 KB
 <div ng-controller="HomeController" class="container-fluid">
   <div class="row">
 
@@ -39,8 +56,23 @@
       </form>
 
       <hr />
-      <h3>Server JSON Response</h3>
-      <pre>{{ response }}</pre>
+      <!-- <h3>Please Check Mark Resturants To Send To Your Friends</h3>
+      <h4>These are top 10 nearest to the address you entered</h4> -->
+      <h3>{{statmentOne}}</h3>
+      <h4>{{statmentTwo}}</h4>
+      <ul ng-repeat="restaurant in response">
+        <label class="checkbox">
+          <input type="checkbox" ng-model='restaurant.custChoice'> <!-- this is where the checkbox input ng-model will toggle the userChoice from false to true -->
+          <IMG ng-src={{restaurant.pic}}></IMG>
+          <span>{{restaurant.name}} : with Rating:</span>
+          <span>{{restaurant.rating}} and type</span>
+          <span>{{restaurant.catogory[0][0]}} </span>
+<!--      <IMG ng-src={{restaurant.pic}}></IMG>
+-->     </label>
+      </ul>
+
+      <!-- <h3>Server JSON Response</h3>
+      <pre>{{ response }}</pre> -->
 
     </div> <!-- .col-md-6 -->
 
