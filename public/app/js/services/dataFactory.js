@@ -11,12 +11,12 @@ app.factory('dataFactory', ['$http', function($http) {
 
     // POST call to server API
     dataFactory.getRestaurantsByAddress = function (postData) {
-        return $http.post(urlBaseTest, postData);
+        return $http.post(urlBase, postData);
     };
 
     // GET call to server API, not currently used but left as example
     dataFactory.getRestaurants = function () {
-        return $http.get(urlBaseTest);
+        return $http.get(urlBase);
     };
 
     return dataFactory;
