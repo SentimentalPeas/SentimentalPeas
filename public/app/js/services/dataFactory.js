@@ -19,5 +19,10 @@ app.factory('dataFactory', ['$http', function($http) {
         return $http.get(urlBase);
     };
 
+    // POST to server with users 3 choices and user name
+    dataFactory.stageToFriends = function (postData) {
+        return $http.post(urlBase + '/stageToFriends', postData);
+    };
+
     return dataFactory;
 }]);
