@@ -6,6 +6,10 @@ app.config(function($routeProvider) {
     controller: 'HomeController',
     templateUrl: 'app/views/home.html'
   })
+  .when('/friend', {
+  	controller:'FriendController',
+  	templateUrl: 'app/views/friend.html'
+  })
   .otherwise({
     redirectTo: '/'
   });

@@ -35,7 +35,7 @@
           </select>
         </div>
         <button type="submit" class="btn btn-primary">Submit (POST)</button>
-        <button type="button" class="btn btn-success" ng-click="getRequest()">Sample (GET)</button>
+       <!--  <button type="button" class="btn btn-success" ng-click="getRequest()">Sample (GET)</button> -->
       </form>
 
       <hr />
@@ -44,7 +44,7 @@
       <h3>{{statmentOne}}</h3>
       <h4>{{statmentTwo}}</h4>
       <ul ng-repeat="restaurant in response">
-        <label class="checkbox">
+        <label class="checkbox-{{restaurant.custChoice}}">
           <input type="checkbox" ng-model='restaurant.custChoice'> <!-- this is where the checkbox input ng-model will toggle the userChoice from false to true -->
           <IMG ng-src={{restaurant.pic}}></IMG>
           <span>{{restaurant.name}} : with Rating:</span>
@@ -53,7 +53,7 @@
 <!--      <IMG ng-src={{restaurant.pic}}></IMG>
 -->     </label>
       </ul>
-
+      <button class="btn" ng-click="stageToFriends()">Submit to Friend</button>
       <!-- <h3>Server JSON Response</h3>
       <pre>{{ response }}</pre> -->
 
