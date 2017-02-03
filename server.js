@@ -106,7 +106,7 @@ app.post('/api/restaurants', function (req, res){
 
 
 // listen (start app with node server.js) ======================================
-var port = 8080
+var port = process.env.PORT || 8080; // Heroku requires this for deployment
 app.listen(port, function() {
-  console.log('App is listening on port ', port);
+  console.log('App is listening on port', port);
 });
