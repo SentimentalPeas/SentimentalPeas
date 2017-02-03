@@ -79,7 +79,6 @@ var params = {
   limit: 10
 };
 
-
 //Post method route where if there is no address provided then we are going to feed params as defailt value.
 app.post('/api/restaurants', function (req, res){
   console.log(req.body);
@@ -100,8 +99,48 @@ app.post('/api/restaurants', function (req, res){
   });
 });
 
+//Tracking total number of votes and total for each of 3 choices
+var total1 = 0;
+var total2 = 0;
+var total3 = 0;
+var totalVotes = 0;
 
+//Different endpoints for 3 friends
+app.post('/api/1', function (req, res){
+  var vote = req.body.vote;
+  console.log(req.body);
+  if(vote === '1') total1++;
+  if(vote === '2') total2++;
+  if(vote === '3') total3++;
+  totalVotes++;
+  return totalCheck(res);
+});
 
+app.post('/api/2', function (req, res){
+  var vote = req.body.vote;
+  if(vote === '1') total1++;
+  if(vote === '2') total2++;
+  if(vote === '3') total3++;
+  totalVotes++;
+  totalCheck(res);
+});
+
+app.post('/api/3', function (req, res){
+  var vote = req.body.vote;
+  if(vote === '1') total1++;
+  if(vote === '2') total2++;
+  if(vote === '3') total3++;
+  totalVotes++;
+  totalCheck(res);
+})
+
+function totalCheck(res){
+  console.log("totalVotes: " + totalVotes);
+  if(totalVotes === 3){
+    //Need to redirect to results page
+  }
+  res.sendStatus(200);
+}
 
 
 
