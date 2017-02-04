@@ -1,0 +1,14 @@
+<!-- <h3>Please Check Mark Resturants To Send To Your Friends</h3>
+      <h4>These are top 10 nearest to the address you entered</h4> -->
+      <h3>{{statmentOne}}</h3>
+      <h4>{{statmentTwo}}</h4>
+      <ul ng-repeat="restaurant in response">
+        <label class="checkbox-{{restaurant.custChoice}}">
+          <input type="checkbox" ng-model='restaurant.custChoice'> <!-- this is where the checkbox input ng-model will toggle the userChoice from false to true -->
+          <IMG ng-src={{restaurant.pic}}></IMG>
+          <span>{{restaurant.name}} : with Rating:</span>
+          <span>{{restaurant.rating}} and type</span>
+          <span>{{restaurant.catogory[0][0]}} </span>
+        </label>
+      </ul>
+      <button class="btn" ng-click="stageToFriends()">Submit to Friend</button>
