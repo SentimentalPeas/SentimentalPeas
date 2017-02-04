@@ -34,7 +34,13 @@ app.controller('HomeController', ['$scope', 'dataFactory', function($scope, data
       .then(function (response) {
         
         // var dataArr = [];
-        var restaurants= response.data.businesses;
+        var restaurants = response.data.businesses;
+
+        for (var i = 0; i < restaurants.length; i++) {
+          restaurants[i].custChoice = false;
+          restaurants[i].votes = 0;
+        }
+
         restaurants.map(function(restaurant){
           //console.log(item.name);
           dataArr.push({name:restaurant.name, rating:restaurant.rating, pic:restaurant.image_url, catogory:restaurant.categories, custChoice:false});
@@ -43,6 +49,7 @@ app.controller('HomeController', ['$scope', 'dataFactory', function($scope, data
         $scope.statmentOne = 'Please Check Mark Resturants To Send To Your Friends';
         $scope.statmentTwo = 'These are top 10 nearest to the address you entered';
         $scope.response = dataArr;
+        $scope.restaurants = restaurants;
         //$scope.response = response.data;
       }, function (error) {
           $scope.response = 'Unable to load customer data: ' + error.message;
@@ -54,14 +61,14 @@ app.controller('HomeController', ['$scope', 'dataFactory', function($scope, data
   var stageArr = [];
   $scope.stageToFriends = function () {
     stageArr = [];
-    dataArr.map(function(item){
+    $scope.restaurants.map(function(item){
       if (item.custChoice) {
         //item.custChoice = false;
         stageArr.push(item);
       }
     });
-    dataFactory.stageToFriends(stageArr)
     console.log(stageArr);
+    dataFactory.stageToFriends(stageArr)
   }
 
 
