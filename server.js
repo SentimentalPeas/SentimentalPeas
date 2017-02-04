@@ -100,13 +100,13 @@ app.post('/api/restaurants', function (req, res){
 });
 
 //POST for staging to friends
-// app.post('/api/restaurants/stageToFriends', function (req, res){
-//   console.log(req.body);
-//   // requestYelp(req.body, function(err, response, body){
-//   //   //console.log(body);
-//   //   res.send(body);
-//   // });
-// });
+app.post('/api/restaurants/stageToFriends', function (req, res){
+  console.log(req.body);
+  // requestYelp(req.body, function(err, response, body){
+  //   //console.log(body);
+  //   res.send(body);
+  // });
+});
 
 //Tracking total number of votes and total for each of 3 choices
 var total1 = 0;
