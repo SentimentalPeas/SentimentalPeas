@@ -11,4 +11,10 @@ var yelpKeys = {
   }
 }
 
+var twilioKeys = {
+  accountSid : 'AC64050c8593792fda33626318cbbf2bf5', 
+  authToken : '23043b0200b3181ad7c583c3f2e8e899' 
+}
+
 module.exports = yelpKeys;
+module.exports = twilioKeys;
