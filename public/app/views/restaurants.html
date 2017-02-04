@@ -1,0 +1,31 @@
+<div ng-controller="RestaurantsController" class="container-fluid">
+  <div class="row">
+
+
+    <div class="col-md-offset-2 col-md-8">
+
+      
+      
+      <h2>Select 3 Options:</h2>
+
+      <!-- <h3>{{statmentOne}}</h3>
+      <h4>{{statmentTwo}}</h4> -->
+      <ul ng-repeat="restaurant in data.restaurants">
+        <label class="checkbox-{{restaurant.custChoice}}">
+          <input type="checkbox" ng-model='restaurant.custChoice'> <!-- toggle custChoice false/true -->
+          <IMG ng-src={{restaurant.image_url}}></IMG>
+          <span>{{restaurant.name}} : with Rating:</span>
+          <span>{{restaurant.rating}} and type</span>
+          <span>{{restaurant.categories[0][0]}} </span>
+        </label>
+      </ul>
+
+      
+      
+      <button class="btn" ng-click="submitRestaurants()">Submit</button>
+
+
+    </div> <!-- .col-md-6 -->
+
+  </div> <!-- .row -->
+</div> <!-- .container-fluid -->

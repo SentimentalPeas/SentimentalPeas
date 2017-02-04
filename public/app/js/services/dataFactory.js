@@ -3,25 +3,28 @@ app.factory('dataFactory', ['$http', function($http) {
     // This is our API route on our server
     var urlBase = '/api/restaurants';
 
-    // URL used for testing to check if working
-    var urlBaseTest = 'https://jsonplaceholder.typicode.com/posts';
-
     // object to hold all factory methods
     var dataFactory = {};
+
+    dataFactory.data = {
+      event: {
+        firstName: null,
+        lastName: null,
+        address: null,
+        time: null,
+      },
+      restaurants: null,
+      options: []
+    };
 
     // POST call to server API
     dataFactory.getRestaurantsByAddress = function (postData) {
         return $http.post(urlBase, postData);
     };
 
-    // GET call to server API, not currently used but left as example
-    dataFactory.getRestaurants = function () {
-        return $http.get(urlBase);
-    };
-
     // POST to server with users 3 choices and user name
-    dataFactory.stageToFriends = function (postData) {
-        return $http.post(urlBase + '/stageToFriends', postData);
+    dataFactory.stageToFriends = function () {
+        return $http.post(urlBase + '/stageToFriends', dataFactory.data.options);
     };
 
     return dataFactory;
