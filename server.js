@@ -19,29 +19,7 @@ var request = require('request');
 var qs = require('querystring');  
 var _ = require('lodash');
 
-var data = {
-  user: {
-    fullName: null,
-    address: null,
-    time: null,
-    friends: [
-    '+14356401931', 
-    //'+12404391140',
-    //'+15102690993',
-    //'+19084157888'
-    ]
-  },
-  voteStatus: 0, // 0 - not started, 1 - in progress, 2 - complete
-  voteCount: {
-    A: 0,
-    B: 0,
-    C: 0
-  },
-  voteOptions: {}
-};
-
-
-
+var data = {};
 
 
 
@@ -120,22 +98,14 @@ app.post('/api/restaurants', function (req, res){
     }
   }
 
-  data.user.fullName = req.body.fullName;
-  data.user.address = req.body.address;
-  data.user.time = req.body.time;
-
-
   requestYelp(reqParameters(), function(err, response, body){
-    //console.log('Data:', data.user.businesses);
-    //data.voteAll = body;
-    //console.log('YELP:', data.voteAll.businesses[0].name);
     res.send(body);
   });
 
 });
 
 //POST for staging to friends
-app.post('/api/restaurants/stageToFriends', function (req, res){
+app.post('/api/stageToFriends', function (req, res){
   data = req.body;
   console.log('VOTE OPTION 1:', data.options[0].name);
   console.log('VOTE OPTION 2:', data.options[1].name);
@@ -151,45 +121,51 @@ app.post('/api/restaurants/stageToFriends', function (req, res){
 
   for (var i = 0; i < data.contacts.length; i++) {
     client.messages.create({ 
-        to: data.contacts[i], 
+        to: data.contacts[i][1], 
         from: "+14152003392", 
         body: '...\n\n' + data.event.fullName + ' has invited you to lunch today at ' + data.event.time + '!\n\nReply with Vote:\n\nA - ' + data.options[0].name + '\nB - ' + data.options[1].name + '\nC - ' + data.options[2].name, 
     }, function(err, message) { 
-        //console.log(message.sid); 
-        console.log('Current Votes: A-' + data.options[0].votes + ' B-' + data.options[1].votes + ' C-' + data.options[2].votes); 
+        if (err) {
+          console.log('ERROR - sending vote text: ', err);
+        } else {
+          console.log('Message:', message);
+          console.log('Current Votes: A-' + data.options[0].votes + ' B-' + data.options[1].votes + ' C-' + data.options[2].votes); 
+        }
     });
   }   
 
+
+  // After a set time, pick a winner and notify contacts
   setTimeout(function(){ 
-    winner();
+    pickWinner();
   }, 1000 * 60 * 1);
 
-  var winner = function() {
-
+  var pickWinner = function() {
 
     // Sort by votes
     data.options.sort(function(a, b) {
         return b.votes - a.votes;
     });
 
+    data.winner = data.options[0];
+
     for (var i = 0; i < data.contacts.length; i++) {
     client.messages.create({ 
-        to: data.contacts[i],
+        to: data.contacts[i][1], 
         from: "+14152003392", 
         body: '...\n\nFINAL RESULTS: \n\nWe have a winner!\n\n' + data.options[0].name + ' (' + data.options[0].votes + ' votes)\n\n',
     }, function(err, message) { 
-        //console.log(message.sid); 
         console.log('Final Votes: A-' + data.options[0].votes + ' B-' + data.options[1].votes + ' C-' + data.options[2].votes); 
     });
     } 
   }
 
-
   res.send('Check your phones!');
 
-  //res.send('hello');
 });
 
+
+// Accept SMS Replies here and add to votes
 app.post('/sms', function(req, res) {
   
   if (req.body.Body.toUpperCase() === 'A') {
@@ -202,9 +178,26 @@ app.post('/sms', function(req, res) {
 
   console.log('Current Votes: A-' + data.options[0].votes + ' B-' + data.options[1].votes + ' C-' + data.options[2].votes); 
 
-  res.writeHead(200, {'Content-Type': 'text/xml'});
+  res.writeHead(200, {'Content-Type': 'application/json'});
   res.end('Tester');
 });
+
+// API to check if we have a winner yet
+app.get('/api/voting', function(req, res) {
+  var content;
+  if (data.winner) {
+    console.log('We have winner to send to server...', data.winner.name);
+    //res.writeHead(200, {'Content-Type': 'application/json'});
+    res.json(data);
+  } else {
+    console.log('No winner yet...');
+    res.send('No winner yet...');
+  }
+
+  
+
+});
+
 
 
 // listen (start app with node server.js) ======================================

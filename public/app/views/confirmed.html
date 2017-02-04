@@ -12,12 +12,10 @@
         <li>Name: {{ data.event.fullName }}</li>
         <li>Address: {{ data.event.address }}</li>
         <li>Time: {{ data.event.time }}</li>
-        <li>Options: {{ data.restaurants[0].name }}</li>
+        <li>Restaurant: <a ng-href="{{ data.winner.url }}" target="_blank">{{ data.winner.name }}</a></li>
+        <li>Description: {{ data.winner.snippet_text }}</li>
+        <li><img ng-src={{data.winner.image_url}}></li>
       </ul>
-
-
-
-
 
     </div> <!-- .col-md-6 -->
 

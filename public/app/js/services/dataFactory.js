@@ -2,7 +2,7 @@ app.factory('dataFactory', ['$http', function($http) {
 
     
     // This is our API route on our server
-    var urlBase = '/api/restaurants';
+    var urlBase = '/api';
 
     // object to hold all factory methods
     var dataFactory = {};
@@ -26,7 +26,7 @@ app.factory('dataFactory', ['$http', function($http) {
 
     // POST call to server API
     dataFactory.getRestaurantsByAddress = function (postData) {
-        return $http.post(urlBase, postData);
+        return $http.post(urlBase + '/restaurants', postData);
     };
 
     // GET call to server API, not currently used but left as example
