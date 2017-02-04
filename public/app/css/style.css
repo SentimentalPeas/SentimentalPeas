@@ -1,3 +1,26 @@
+
+.header h1 {
+  background-color: deepskyblue;
+  margin: 0 0 20px;
+  padding: 20px;
+}
+
+.header h1 a {
+  color: black;
+}
+
+.header h1 a:hover {
+  color: #333;
+  cursor: pointer;
+}
+
+.results {
+  padding: 20px;
+}
+ul.results li {
+  margin: 20px;
+}
+
 pre {
     white-space: pre-wrap;       /* Since CSS 2.1 */
     white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
@@ -5,3 +28,4 @@ pre {
     white-space: -o-pre-wrap;    /* Opera 7 */
     word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
+

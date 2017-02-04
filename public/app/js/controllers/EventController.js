@@ -2,8 +2,7 @@ app.controller('EventController', ['$scope', '$location', 'dataFactory', functio
 
   $scope.submit = function() {
 
-    dataFactory.data.event.firstName = $scope.firstName;
-    dataFactory.data.event.lastName = $scope.lastName;
+    dataFactory.data.event.fullName = $scope.fullName;
     dataFactory.data.event.address = $scope.address;
     dataFactory.data.event.time = $scope.time;
 
@@ -25,8 +24,7 @@ app.controller('EventController', ['$scope', '$location', 'dataFactory', functio
   var dataArr = [];
   function getRestaurantsByAddress() {
     var clientData = {
-      firstName: $scope.firstName,
-      lastName: $scope.lastName,
+      fullName: $scope.fullName,
       address: $scope.address,
       time: $scope.time
     };

@@ -4,13 +4,35 @@
 
     <div class="col-md-offset-2 col-md-8">
 
-      
-      
       <h2>Select 3 Options:</h2>
 
-      <!-- <h3>{{statmentOne}}</h3>
-      <h4>{{statmentTwo}}</h4> -->
-      <ul ng-repeat="restaurant in data.restaurants">
+      <hr>
+
+      <table class="table table-striped table-bordered"> 
+        <thead> 
+          <tr> 
+            <th>Select</th> 
+            <th>Image</th>
+            <th>Name</th>
+            <th>Rating</th>
+            <th>Category</th>
+          </tr> 
+        </thead> 
+        <tbody> 
+          <tr ng-repeat="restaurant in data.restaurants">
+            <td><input type="checkbox" ng-model='restaurant.custChoice'></td>
+            <td><img ng-src={{restaurant.image_url}}></img></td>
+            <td>{{restaurant.name}}</td>
+            <td>{{restaurant.rating}}</td>
+            <td>{{restaurant.categories[0][0]}}</td> 
+          </tr> 
+        </tbody> 
+      </table>
+
+
+
+
+    <!--   <ul ng-repeat="restaurant in data.restaurants">
         <label class="checkbox-{{restaurant.custChoice}}">
           <input type="checkbox" ng-model='restaurant.custChoice'> <!-- toggle custChoice false/true -->
           <IMG ng-src={{restaurant.image_url}}></IMG>
@@ -18,12 +40,9 @@
           <span>{{restaurant.rating}} and type</span>
           <span>{{restaurant.categories[0][0]}} </span>
         </label>
-      </ul>
+      </ul> -->
 
-      
-      
       <button class="btn" ng-click="submitRestaurants()">Submit</button>
-
 
     </div> <!-- .col-md-6 -->
 

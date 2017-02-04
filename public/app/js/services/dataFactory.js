@@ -1,5 +1,6 @@
 app.factory('dataFactory', ['$http', function($http) {
 
+    
     // This is our API route on our server
     var urlBase = '/api/restaurants';
 
@@ -8,13 +9,19 @@ app.factory('dataFactory', ['$http', function($http) {
 
     dataFactory.data = {
       event: {
-        firstName: null,
-        lastName: null,
+        fullName: null,
         address: null,
         time: null,
+        timer: 'test'
       },
       restaurants: null,
-      options: []
+      options: [],
+      contacts: [
+        ['Bill', '+14356401931'], 
+        //'+12404391140',
+        //'+15102690993',
+        //'+19084157888'
+        ],
     };
 
     // POST call to server API
@@ -22,9 +29,14 @@ app.factory('dataFactory', ['$http', function($http) {
         return $http.post(urlBase, postData);
     };
 
+    // GET call to server API, not currently used but left as example
+    dataFactory.getVoting = function () {
+        return $http.get(urlBase + '/voting');
+    };
+
     // POST to server with users 3 choices and user name
     dataFactory.stageToFriends = function () {
-        return $http.post(urlBase + '/stageToFriends', dataFactory.data.options);
+        return $http.post(urlBase + '/stageToFriends', dataFactory.data);
     };
 
     return dataFactory;
