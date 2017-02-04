@@ -34,11 +34,24 @@
       
       <div class="col-xs-12 col-sm-6">
           <h4>Contact List:</h4>
-          <table class="table table-striped table-bordered"> <thead> <tr> <th>Name</th> <th>SMS #</th></tr> </thead> <tbody> <tr ng-repeat="contact in data.contacts"><td>{{ contact[0] }}</td> <td>{{ contact[1] }}</td> </tr>  </tbody> </table>
+          <table class="table table-striped table-bordered"> 
+            <thead> 
+              <tr> 
+                <th>Name</th> 
+                <th>SMS #</th>
+              </tr> 
+            </thead> 
+            <tbody> 
+              <tr ng-repeat="contact in data.contacts">
+                <td>{{ contact[0] }}</td>
+                <td>{{ contact[1] }}</td> 
+              </tr> 
+            </tbody> 
+          </table>
           
         
            <form ng-submit="submitContacts()">
-             <button type="submit" class="btn btn-primary">Submit Contacts</button>
+             <button type="submit" class="btn btn-primary">Submit My Contacts</button>
            </form>
 
 
