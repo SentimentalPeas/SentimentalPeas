@@ -1,0 +1,46 @@
+<div ng-controller="ContactsController" class="container-fluid">
+  <div class="row">
+
+
+    <div class="col-md-offset-2 col-md-8">
+      
+      <h2>Step 2 – Add Contacts:</h2>
+
+      <ul class="bg-info">
+        <li>Name: {{ data.event.firstName }} {{ data.event.lastName }}</li>
+        <li>Address: {{ data.event.address }}</li>
+        <li>Time: {{ data.event.time }}</li>
+        <li>Options: {{ data.restaurants[0].name }}</li>
+      </ul>
+
+      <form ng-submit="submitContacts()">
+
+        <div class="form-group">
+          <label for="address">Search Address:</label>
+          <input type="text" class="form-control" placeholder="i.e. '944 Market Street, San Franciso, CA'" ng-model="address">
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Add Contacts</button>
+      </form>
+
+
+
+      <ul class="unstyled">
+       <li ng-repeat="phoneNum in phoneNums">
+         <label class="checkbox">
+           <span>{{phoneNum}}</span>
+         </label>
+       </li>
+       </ul>
+
+       <form ng-submit="addPhoneNum()">
+         <input type="text" ng-model="phoneNumber"  size="30" placeholder="Add Friend's Phone #">
+         <input class="btn-primary" type="submit" value="add">
+       </form>
+
+
+
+    </div> <!-- .col-md-6 -->
+
+  </div> <!-- .row -->
+</div> <!-- .container-fluid -->

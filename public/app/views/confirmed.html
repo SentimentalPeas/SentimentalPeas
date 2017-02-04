@@ -1,0 +1,26 @@
+<div ng-controller="ConfirmedController" class="container-fluid">
+  <div class="row">
+
+
+    <div class="col-md-offset-2 col-md-8">
+      
+      <h2>Step 5 – Confirmed:</h2>
+
+      <ul class="bg-info">
+        <li>Name: {{ data.event.firstName }} {{ data.event.lastName }}</li>
+        <li>Address: {{ data.event.address }}</li>
+        <li>Time: {{ data.event.time }}</li>
+        <li>Options: {{ data.restaurants[0].name }}</li>
+      </ul>
+
+      <ul class="bg-info">
+        <li ng-repeat="option in data.options">Name: {{ option.name }}</li>
+      </ul>
+
+
+
+
+    </div> <!-- .col-md-6 -->
+
+  </div> <!-- .row -->
+</div> <!-- .container-fluid -->
