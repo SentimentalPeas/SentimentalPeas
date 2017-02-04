@@ -19,6 +19,10 @@ var request = require('request');
 var qs = require('querystring');  
 var _ = require('lodash');
 
+var data = {};
+
+
+
  var requestYelp = function(set_parameters, callback) {
 
    /* The type of request */
@@ -93,68 +97,111 @@ app.post('/api/restaurants', function (req, res){
       return params;
     }
   }
+
   requestYelp(reqParameters(), function(err, response, body){
-    //console.log(body);
     res.send(body);
   });
+
 });
 
 //POST for staging to friends
-// app.post('/api/restaurants/stageToFriends', function (req, res){
-//   console.log(req.body);
-//   // requestYelp(req.body, function(err, response, body){
-//   //   //console.log(body);
-//   //   res.send(body);
-//   // });
-// });
+app.post('/api/stageToFriends', function (req, res){
+  data = req.body;
+  console.log('VOTE OPTION 1:', data.options[0].name);
+  console.log('VOTE OPTION 2:', data.options[1].name);
+  console.log('VOTE OPTION 3:', data.options[2].name);
 
-//Tracking total number of votes and total for each of 3 choices
-var total1 = 0;
-var total2 = 0;
-var total3 = 0;
-var totalVotes = 0;
 
-//Different endpoints for 3 friends
-app.post('/api/1', function (req, res){
-  var vote = req.body.vote;
-  console.log(req.body);
-  if(vote === '1') total1++;
-  if(vote === '2') total2++;
-  if(vote === '3') total3++;
-  totalVotes++;
-  return totalCheck(res);
-});
+  console.log('VOTING HAS STARTED!');
+  var accountSid = 'AC64050c8593792fda33626318cbbf2bf5'; 
+  var authToken = '23043b0200b3181ad7c583c3f2e8e899'; 
+   
+  //require the Twilio module and create a REST client 
+  var client = require('twilio')(accountSid, authToken); 
 
-app.post('/api/2', function (req, res){
-  var vote = req.body.vote;
-  if(vote === '1') total1++;
-  if(vote === '2') total2++;
-  if(vote === '3') total3++;
-  totalVotes++;
-  totalCheck(res);
-});
+  for (var i = 0; i < data.contacts.length; i++) {
+    client.messages.create({ 
+        to: data.contacts[i][1], 
+        from: "+14152003392", 
+        body: '...\n\n' + data.event.fullName + ' has invited you to lunch today at ' + data.event.time + '!\n\nReply with Vote:\n\nA - ' + data.options[0].name + '\nB - ' + data.options[1].name + '\nC - ' + data.options[2].name, 
+    }, function(err, message) { 
+        if (err) {
+          console.log('ERROR - sending vote text: ', err);
+        } else {
+          console.log('Message:', message);
+          console.log('Current Votes: A-' + data.options[0].votes + ' B-' + data.options[1].votes + ' C-' + data.options[2].votes); 
+        }
+    });
+  }   
 
-app.post('/api/3', function (req, res){
-  var vote = req.body.vote;
-  if(vote === '1') total1++;
-  if(vote === '2') total2++;
-  if(vote === '3') total3++;
-  totalVotes++;
-  totalCheck(res);
-})
 
-function totalCheck(res){
-  console.log("totalVotes: " + totalVotes);
-  if(totalVotes === 3){
-    //Need to redirect to results page
+  // After a set time, pick a winner and notify contacts
+  setTimeout(function(){ 
+    pickWinner();
+  }, 1000 * 60 * 1);
+
+  var pickWinner = function() {
+
+    // Sort by votes
+    data.options.sort(function(a, b) {
+        return b.votes - a.votes;
+    });
+
+    data.winner = data.options[0];
+
+    for (var i = 0; i < data.contacts.length; i++) {
+    client.messages.create({ 
+        to: data.contacts[i][1], 
+        from: "+14152003392", 
+        body: '...\n\nFINAL RESULTS: \n\nWe have a winner!\n\n' + data.options[0].name + ' (' + data.options[0].votes + ' votes)\n\n',
+    }, function(err, message) { 
+        console.log('Final Votes: A-' + data.options[0].votes + ' B-' + data.options[1].votes + ' C-' + data.options[2].votes); 
+    });
+    } 
   }
-  res.sendStatus(200);
-}
+
+  res.send('Check your phones!');
+
+});
+
+
+// Accept SMS Replies here and add to votes
+app.post('/sms', function(req, res) {
+  
+  if (req.body.Body.toUpperCase() === 'A') {
+    data.options[0].votes++;
+  } else if (req.body.Body.toUpperCase() === 'B') {
+    data.options[1].votes++;
+  } else if (req.body.Body.toUpperCase() === 'C') {
+    data.options[2].votes++;
+  }
+
+  console.log('Current Votes: A-' + data.options[0].votes + ' B-' + data.options[1].votes + ' C-' + data.options[2].votes); 
+
+  res.writeHead(200, {'Content-Type': 'application/json'});
+  res.end('Tester');
+});
+
+// API to check if we have a winner yet
+app.get('/api/voting', function(req, res) {
+  var content;
+  if (data.winner) {
+    console.log('We have winner to send to server...', data.winner.name);
+    //res.writeHead(200, {'Content-Type': 'application/json'});
+    res.json(data);
+  } else {
+    console.log('No winner yet...');
+    res.send('No winner yet...');
+  }
+
+  
+
+});
 
 
 
 // listen (start app with node server.js) ======================================
-var port = 8080
+var port = process.env.PORT || 5000;
 app.listen(port, function() {
-  console.log('App is listening on port ', port);
+  console.log('App is totally listening on port ', port);
 });
