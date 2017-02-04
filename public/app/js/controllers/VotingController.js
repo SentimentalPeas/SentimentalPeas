@@ -11,5 +11,4 @@ app.controller('VotingController', ['$scope', '$location', 'dataFactory', functi
 
 
 
-
 }]);

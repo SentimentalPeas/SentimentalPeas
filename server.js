@@ -21,8 +21,7 @@ var _ = require('lodash');
 
 var data = {
   user: {
-    firstName: null,
-    lastName: null,
+    fullName: null,
     address: null,
     time: null,
     friends: [
@@ -121,8 +120,7 @@ app.post('/api/restaurants', function (req, res){
     }
   }
 
-  data.user.firstName = req.body.firstName;
-  data.user.lastName = req.body.lastName;
+  data.user.fullName = req.body.fullName;
   data.user.address = req.body.address;
   data.user.time = req.body.time;
 
@@ -138,10 +136,10 @@ app.post('/api/restaurants', function (req, res){
 
 //POST for staging to friends
 app.post('/api/restaurants/stageToFriends', function (req, res){
-  data.voteOptions = req.body;
-  console.log('VOTE OPTION 1:', data.voteOptions[0].name);
-  console.log('VOTE OPTION 2:', data.voteOptions[1].name);
-  console.log('VOTE OPTION 3:', data.voteOptions[2].name);
+  data = req.body;
+  console.log('VOTE OPTION 1:', data.options[0].name);
+  console.log('VOTE OPTION 2:', data.options[1].name);
+  console.log('VOTE OPTION 3:', data.options[2].name);
 
 
   console.log('VOTING HAS STARTED!');
@@ -151,23 +149,14 @@ app.post('/api/restaurants/stageToFriends', function (req, res){
   //require the Twilio module and create a REST client 
   var client = require('twilio')(accountSid, authToken); 
 
-  // var phones = [
-  //   '+14356401931', 
-  //   '+12404391140',
-  //   // '+15102690993',
-  //   // '+19084157888'
-  //   ];
-
-
-
-  for (var i = 0; i < data.user.friends.length; i++) {
+  for (var i = 0; i < data.contacts.length; i++) {
     client.messages.create({ 
-        to: data.user.friends[i], 
+        to: data.contacts[i], 
         from: "+14152003392", 
-        body: '...\n\nBill Lea has invited you to lunch today!\n\nReply with Vote:\n\nA - ' + data.voteOptions[0].name + '\nB - ' + data.voteOptions[1].name + '\nC - ' + data.voteOptions[2].name, 
+        body: '...\n\n' + data.event.fullName + ' has invited you to lunch today at ' + data.event.time + '!\n\nReply with Vote:\n\nA - ' + data.options[0].name + '\nB - ' + data.options[1].name + '\nC - ' + data.options[2].name, 
     }, function(err, message) { 
         //console.log(message.sid); 
-        console.log('Current Votes: A-' + data.voteOptions[0].votes + ' B-' + data.voteOptions[1].votes + ' C-' + data.voteOptions[2].votes); 
+        console.log('Current Votes: A-' + data.options[0].votes + ' B-' + data.options[1].votes + ' C-' + data.options[2].votes); 
     });
   }   
 
@@ -179,18 +168,18 @@ app.post('/api/restaurants/stageToFriends', function (req, res){
 
 
     // Sort by votes
-    data.voteOptions.sort(function(a, b) {
+    data.options.sort(function(a, b) {
         return b.votes - a.votes;
     });
 
-    for (var i = 0; i < data.user.friends.length; i++) {
+    for (var i = 0; i < data.contacts.length; i++) {
     client.messages.create({ 
-        to: data.user.friends[i],
+        to: data.contacts[i],
         from: "+14152003392", 
-        body: '...\n\nFINAL RESULTS: \n\nWe have a winner!\n\n' + data.voteOptions[0].name + ' (' + data.voteOptions[0].votes + ' votes)\n\n',
+        body: '...\n\nFINAL RESULTS: \n\nWe have a winner!\n\n' + data.options[0].name + ' (' + data.options[0].votes + ' votes)\n\n',
     }, function(err, message) { 
         //console.log(message.sid); 
-        console.log('Final Votes: A-' + data.voteOptions[0].votes + ' B-' + data.voteOptions[1].votes + ' C-' + data.voteOptions[2].votes); 
+        console.log('Final Votes: A-' + data.options[0].votes + ' B-' + data.options[1].votes + ' C-' + data.options[2].votes); 
     });
     } 
   }
@@ -204,14 +193,14 @@ app.post('/api/restaurants/stageToFriends', function (req, res){
 app.post('/sms', function(req, res) {
   
   if (req.body.Body.toUpperCase() === 'A') {
-    data.voteOptions[0].votes++;
+    data.options[0].votes++;
   } else if (req.body.Body.toUpperCase() === 'B') {
-    data.voteOptions[1].votes++;
+    data.options[1].votes++;
   } else if (req.body.Body.toUpperCase() === 'C') {
-    data.voteOptions[2].votes++;
+    data.options[2].votes++;
   }
 
-  console.log('Current Votes: A-' + data.voteOptions[0].votes + ' B-' + data.voteOptions[1].votes + ' C-' + data.voteOptions[2].votes); 
+  console.log('Current Votes: A-' + data.options[0].votes + ' B-' + data.options[1].votes + ' C-' + data.options[2].votes); 
 
   res.writeHead(200, {'Content-Type': 'text/xml'});
   res.end('Tester');
