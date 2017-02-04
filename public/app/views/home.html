@@ -50,9 +50,24 @@
           <span>{{restaurant.name}} : with Rating:</span>
           <span>{{restaurant.rating}} and type</span>
           <span>{{restaurant.catogory[0][0]}} </span>
-<!--      <IMG ng-src={{restaurant.pic}}></IMG>
--->     </label>
+        </label>
       </ul>
+
+      <ul class="unstyled">
+        <li ng-repeat="phoneNum in phoneNums">
+          <label class="checkbox">
+            <span>{{phoneNum}}</span>
+          </label>
+        </li>
+      </ul>
+
+      <form ng-submit="addPhoneNum()">
+        <input type="text" ng-model="phoneNumber"  size="30" placeholder="Add Friend's Phone #">
+        <input class="btn-primary" type="submit" value="add">
+      </form>
+
+
+
       <button class="btn" ng-click="stageToFriends()">Submit to Friend</button>
       <!-- <h3>Server JSON Response</h3>
       <pre>{{ response }}</pre> -->
