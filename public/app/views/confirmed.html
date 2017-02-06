@@ -4,18 +4,38 @@
 
     <div class="col-md-offset-2 col-md-8">
       
-      <h2>Step 5 – Lunch Confirmed:</h2>
+      <h2>Step 5 – Lunch Confirmed!</h2>
 
       <hr>
 
-      <ul class="bg-info results">
-        <li>Name: {{ data.event.fullName }}</li>
-        <li>Address: {{ data.event.address }}</li>
-        <li>Time: {{ data.event.time }}</li>
-        <li>Restaurant: <a ng-href="{{ data.winner.url }}" target="_blank">{{ data.winner.name }}</a></li>
-        <li>Description: {{ data.winner.snippet_text }}</li>
-        <li><img ng-src={{data.winner.image_url}}></li>
-      </ul>
+      <div class="row results">
+        <div class="col-sm-6">
+
+          <h3>
+            <a ng-href="{{ data.winner.url }}" target="_blank">{{ data.winner.name }}</a> 
+            <img ng-src={{data.winner.rating_img_url}}>
+          </h3>
+          
+          <p>
+            <span ng-repeat="address in data.winner.location.display_address">{{ address }}<br></span>
+          </p>
+
+          <p><b>Time:</b> {{ data.event.time }}</p>
+
+          <p><b>Invitees:</b></p>
+          <ul>
+            <li ng-repeat="contact in data.contacts">{{ contact[0] }}</li>
+          </ul>
+
+          <p><b>Latest Review:</b> {{ data.winner.snippet_text }}</p>
+
+        </div>
+        <div class="col-sm-6">
+
+          <img src="https://maps.googleapis.com/maps/api/staticmap?markers=color:red|{{ mapAddress }}&zoom=17&size=400x400&key=AIzaSyDij3hmLUQwFjcHinguhvLwujUGMyGaHgw" class="img-responsive map">
+          
+        </div>
+      </div>
 
     </div> <!-- .col-md-6 -->
 
