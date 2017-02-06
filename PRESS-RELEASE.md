@@ -17,28 +17,29 @@ Once the project moves into development, the press release can be used as a touc
  -->
  
 ## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
+  > Let's Do Lunch
 
 ## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  > The easiest way to decide on where to eat!
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  > Tired of figuring out where to eat?  Want to figure it out in about 5 minutes?  Just plug in your address to see the top 10 restaurants in your area.  
+  You pick just three and invite all your friends to vote!  In less than 3 minutes, this app will count all your votes, and make the decision for you!
 
 ## Problem ##
-  > Describe the problem your product solves.
+  > Eating lunch with a group of people can be very time consuming.  It will take to time to invite friends.  It'll be a while until you figure out every one's interest.  Then you'll have to get a consensus.  You'll basically spend half the time deciding where to go.  
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+  > Let's Do Lunch cuts that process down.  With our app you can get it all done in less than 5 minutes.  All you need is the name and phone numbers of the people you want to eat with.  You pick three restaurants you like, and allow your friends to vote.  Within minutes the votes will be tallied and the restaurant with the most votes will win!  
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+  > "We spend so much time everyday trying to figure out where and when to eat... This app was a no brainer". - Abiy Melaku
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  > Just go to https://desolate-chamber-45514.herokuapp.com.  No log in or sign up required. Click the 'start' button and you're ready to roll.  All you need to do is type in your current address, your name, and phone number.  Simply click on the three restaurants you want from the list.  Plug in the names and phone numbers of your friends and guests and wait just a few minutes for them to vote.  Viola! Let's do Lunch as made your life that much easier!
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  > "Let's Do Lunch is so easy to use and it saves me time, every time". - Dr. Rick Moranis
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+  > Let's Do Lunch is an easy to use time-saver of an app.  Go to https://desolate-chamber-45514.herokuapp.com to give it a shot!

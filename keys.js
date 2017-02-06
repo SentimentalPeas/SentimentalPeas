@@ -1,5 +1,5 @@
 //yelp keys
-var yelpKeys = {
+exports.yelpKeys = {
   consumerKey : "LCZuw2ApIUGD2LI_SAlHEg",
   consumerSecret : "aKNzBDLkAHXhwl3-Dr71ZZGGSPA",
   accessToken : "CRjf-vVxfBaoh0sZTmEf5QExq5YSvMck",
@@ -11,10 +11,8 @@ var yelpKeys = {
   }
 }
 
-var twilioKeys = {
+exports.twilioKeys = {
   accountSid : 'AC64050c8593792fda33626318cbbf2bf5', 
   authToken : '23043b0200b3181ad7c583c3f2e8e899' 
 }
 
-module.exports = yelpKeys;
-module.exports = twilioKeys;
