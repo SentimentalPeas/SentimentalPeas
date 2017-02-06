@@ -21,8 +21,7 @@ var data = {};
 const params = {
   location: 'san francisco, ca',
   term: 'food',
-  limit: 10,
-  radius_filter: 2000
+  limit: 10
 };
 
 //Post method route where if there is no address provided then we are going to feed params as defailt value.
@@ -33,7 +32,8 @@ app.post('/api/restaurants', (req, res) => {
       return {
         location: req.body.address,
         term: 'food',
-        limit: 10
+        limit: 10,
+        radius_filter: 500
       }
     } else {
       return params;
@@ -107,10 +107,9 @@ app.post('/sms', (req, res) => {
   }
 
   console.log(`Current Votes: A-${data.options[0].votes} B-${data.options[1].votes} C-${data.options[2].votes}`); 
-  
-  // Send Response to Twilio to avoid error on Twilio end
+  // Send Response to Twilio that it expects
   res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Vote Received, thanks Twilio!');
+  res.end();
 });
 
 // API to check if we have a winner yet
