@@ -39,5 +39,10 @@ app.factory('dataFactory', ['$http', function($http) {
         return $http.post(urlBase + '/stageToFriends', dataFactory.data);
     };
 
+    // GET call to server with the three choices
+    dataFactory.friendGetsThreeChoices = function () {
+        return $http.get(urlBase + '/getTreeChoices', dataFactory.data);
+    };
+    
     return dataFactory;
 }]);

@@ -15,6 +15,16 @@ app.controller('ContactsController', ['$scope', '$location', 'dataFactory', func
      //$scope.contactNew = '';
   };
 
+  $scope.remove = function(contact) {
+    console.log(contact);
+    var oldContacts = dataFactory.data.contacts;
+    angular.forEach(oldContacts, function(oldContact) {
+      if (oldContact === contact) {
+        var index = oldContacts.indexOf(contact);
+        dataFactory.data.contacts.splice(index, 1 );
+      }
+    });
+  };
 
 
 

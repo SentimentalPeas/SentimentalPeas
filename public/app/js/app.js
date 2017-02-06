@@ -26,6 +26,10 @@ app.config(function($routeProvider) {
     controller:'ConfirmedController',
     templateUrl: 'app/views/confirmed.html'
   })
+  .when('/friend', {
+    controller: 'friendController',
+    templateUrl: 'app/views/friend.html'
+  })
   .otherwise({
     redirectTo: '/'
   });
