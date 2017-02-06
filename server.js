@@ -10,8 +10,9 @@ app.use(bodyParser.urlencoded({'extended':'true'}));            // parse applica
 app.use(bodyParser.json());                                     // parse application/json
 
 //require keys
-var yelpKeys = require('./keys.js');
-var twilioKeys = require('./keys.js')
+var yelpKeys = require('./keys.js').yelpKeys;
+//require twilio keys
+var twilioKeys = require('./keys.js').twilioKeys;
 
 /* require the modules needed */
 var oauthSignature = require('oauth-signature');  
@@ -114,8 +115,8 @@ app.post('/api/stageToFriends', function (req, res){
 
 
   console.log('VOTING HAS STARTED!');
-  var accountSid = 'AC64050c8593792fda33626318cbbf2bf5'; 
-  var authToken = '23043b0200b3181ad7c583c3f2e8e899'; 
+  // var accountSid = 'AC64050c8593792fda33626318cbbf2bf5'; 
+  // var authToken = '23043b0200b3181ad7c583c3f2e8e899'; 
    
   //require the Twilio module and create a REST client 
   var client = require('twilio')(twilioKeys.accountSid, twilioKeys.authToken); 
