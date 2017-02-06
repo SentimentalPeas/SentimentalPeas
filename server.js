@@ -106,8 +106,10 @@ app.post('/sms', (req, res) => {
   }
 
   console.log(`Current Votes: A-${data.options[0].votes} B-${data.options[1].votes} C-${data.options[2].votes}`); 
-  res.writeHead(200, {'Content-Type': 'application/json'});
-  res.end('Tester');
+  
+  // Send Response to Twilio to avoid error on Twilio end
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('Vote Received, thanks Twilio!');
 });
 
 // API to check if we have a winner yet
