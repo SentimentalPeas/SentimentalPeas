@@ -17,10 +17,10 @@ app.factory('dataFactory', ['$http', function($http) {
       restaurants: null,
       options: [],
       contacts: [
-        ['Bill', '+14356401931'], 
-        //'+12404391140',
-        //'+15102690993',
-        //'+19084157888'
+          ['Bill', '+14356401931'],
+          ['Abiy', '+12404391140'],
+          ['Jawad', '+15102690993'],
+          ['Max', '+19084157888'], 
         ],
     };
 
