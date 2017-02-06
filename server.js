@@ -45,6 +45,7 @@ app.post('/api/restaurants', (req, res) => {
 
 });
 
+
 //POST for staging to friends
 app.post('/api/stageToFriends', (req, res) => {
   data = req.body;
@@ -52,44 +53,46 @@ app.post('/api/stageToFriends', (req, res) => {
   console.log('VOTE OPTION 2:', data.options[1].name);
   console.log('VOTE OPTION 3:', data.options[2].name);
   console.log('VOTING HAS STARTED!');
-   
+
   for (let i = 0; i < data.contacts.length; i++) {
-    Twilio.messages.create({ 
-        to: data.contacts[i][1], 
-        from: "+14152003392", 
-        body: `...\n\n${data.event.fullName} has invited you to lunch today at ${data.event.time}!\n\nReply with Vote:\n\nA - ${data.options[0].name}\nB - ${data.options[1].name}\nC - ${data.options[2].name}`, 
-    }, (err, message) => { 
-        if (err) {
-          console.log('ERROR - sending vote text: ', err);
-        } else {
-          console.log('Message:', message);
-          console.log(`Current Votes: A-${data.options[0].votes} B-${data.options[1].votes} C-${data.options[2].votes}`); 
-        }
+    Twilio.messages.create({
+      to: data.contacts[i][1],
+      from: "+14152003392",
+      body: `...\n\n${data.event.fullName} has invited you to lunch today at ${data.event.time}!\n\nReply with Vote:\n\nA - ${data.options[0].name}\nB - ${data.options[1].name}\nC - ${data.options[2].name}`
+    }, (err, message) => {
+      if (err) {
+        console.log('ERROR - sending vote text: ', err);
+      } else {
+        console.log('Message:', message);
+        console.log(`Current Votes: A-${data.options[0].votes} B-${data.options[1].votes} C-${data.options[2].votes}`);
+      }
     });
-  }   
+  }
 
   // After a set time, pick a winner and notify contacts
-  setTimeout(() => { 
+  setTimeout(() => {
     pickWinner();
   }, 1000 * 60 * 1);
 
-  var pickWinner = () => {
+  var pickWinner = function pickWinner() {
     // Sort by votes
     data.options.sort((a, b) => b.votes - a.votes);
+    console.log('data.options[0]:  ', data.options[0]);
     data.winner = data.options[0];
-    for (let i = 0; i < data.contacts.length; i++) {
-    Twilio.messages.create({ 
-        to: data.contacts[i][1], 
-        from: "+14152003392", 
-        body: `...\n\nFINAL RESULTS: \n\nWe have a winner!\n\n${data.options[0].name} (${data.options[0].votes} votes)\n\n`,
-    }, (err, message) => { 
-        console.log(`Final Votes: A-${data.options[0].votes} B-${data.options[1].votes} C-${data.options[2].votes}`); 
-    });
-    } 
-  }
+    for (let _i = 0; _i < data.contacts.length; _i++) {
+      Twilio.messages.create({
+        to: data.contacts[_i][1],
+        from: "+14152003392",
+        body: `...\n\nFINAL RESULTS: \n\nWe have a winner!\n\n${data.options[0].name} (${data.options[0].votes} votes)\n\nRestaurant:  \n\n${data.options[0].mobile_url}`
+      }, (err, message) => {
+        console.log(`Final Votes: A-${data.options[0].votes} B-${data.options[1].votes} C-${data.options[2].votes}`);
+      });
+    }
+  };
 
   res.send('Check your phones!');
 });
+
 
 // Accept SMS Replies here and add to votes
 app.post('/sms', (req, res) => {
