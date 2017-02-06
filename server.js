@@ -11,6 +11,7 @@ app.use(bodyParser.json());                                     // parse applica
 
 //require keys
 var yelpKeys = require('./keys.js');
+//require twilio keys
 var twilioKeys = require('./keys.js')
 
 /* require the modules needed */
@@ -118,7 +119,7 @@ app.post('/api/stageToFriends', function (req, res){
   var authToken = '23043b0200b3181ad7c583c3f2e8e899'; 
    
   //require the Twilio module and create a REST client 
-  var client = require('twilio')(twilioKeys.accountSid, twilioKeys.authToken); 
+  var client = require('twilio')(accountSid, authToken); 
 
   for (var i = 0; i < data.contacts.length; i++) {
     client.messages.create({ 
