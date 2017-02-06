@@ -21,7 +21,8 @@ var data = {};
 const params = {
   location: 'san francisco, ca',
   term: 'food',
-  limit: 10
+  limit: 10,
+  radius_filter: 2000
 };
 
 //Post method route where if there is no address provided then we are going to feed params as defailt value.
