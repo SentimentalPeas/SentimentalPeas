@@ -15,10 +15,13 @@
 }
 
 .results {
-  padding: 20px;
+  padding: 10px 0;
+  background-color: #efefef;
+  border: 1px solid #ddd;
 }
-ul.results li {
-  margin: 20px;
+.map {
+  padding: 10px;
+  background-color: white;
 }
 
 pre {
