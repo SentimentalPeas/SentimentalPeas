@@ -9,11 +9,11 @@ app.use(express.static(__dirname + '/public'));                 // set the stati
 app.use(bodyParser.urlencoded({'extended':'true'}));            // parse application/x-www-form-urlencoded
 app.use(bodyParser.json());                                     // parse application/json
 
-//configure yelp
-var Yelp = require('./yelp.js')
+//configure Yelp
+var Yelp = require('./yelp.js');
 
-//require twilio keys
-var twilioKeys = require('./keys.js').twilioKeys;
+//configure Twilio
+var Twilio = require('./twilio.js').Twilio;
 
 var data = {};
 
@@ -54,14 +54,12 @@ app.post('/api/stageToFriends', function (req, res){
 
 
   console.log('VOTING HAS STARTED!');
-  // var accountSid = 'AC64050c8593792fda33626318cbbf2bf5'; 
-  // var authToken = '23043b0200b3181ad7c583c3f2e8e899'; 
    
-  //require the Twilio module and create a REST client 
-  var client = require('twilio')(twilioKeys.accountSid, twilioKeys.authToken); 
+  // //require the Twilio module and create a REST client 
+  // var client = require('twilio')(twilioKeys.accountSid, twilioKeys.authToken); 
 
   for (var i = 0; i < data.contacts.length; i++) {
-    client.messages.create({ 
+    Twilio.messages.create({ 
         to: data.contacts[i][1], 
         from: "+14152003392", 
         body: '...\n\n' + data.event.fullName + ' has invited you to lunch today at ' + data.event.time + '!\n\nReply with Vote:\n\nA - ' + data.options[0].name + '\nB - ' + data.options[1].name + '\nC - ' + data.options[2].name, 
@@ -91,7 +89,7 @@ app.post('/api/stageToFriends', function (req, res){
     data.winner = data.options[0];
 
     for (var i = 0; i < data.contacts.length; i++) {
-    client.messages.create({ 
+    Twilio.messages.create({ 
         to: data.contacts[i][1], 
         from: "+14152003392", 
         body: '...\n\nFINAL RESULTS: \n\nWe have a winner!\n\n' + data.options[0].name + ' (' + data.options[0].votes + ' votes)\n\n',
