@@ -110,7 +110,7 @@ app.post('/sms', (req, res) => {
   
   // Send Response to Twilio to avoid error on Twilio end
   res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Vote Received, thanks Twilio!');
+  res.end();
 });
 
 // API to check if we have a winner yet
