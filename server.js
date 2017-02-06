@@ -107,8 +107,7 @@ app.post('/sms', (req, res) => {
   }
 
   console.log(`Current Votes: A-${data.options[0].votes} B-${data.options[1].votes} C-${data.options[2].votes}`); 
-  
-  // Send Response to Twilio to avoid error on Twilio end
+  // Send Response to Twilio that it expects
   res.writeHead(200, {'Content-Type': 'text/plain'});
   res.end();
 });
